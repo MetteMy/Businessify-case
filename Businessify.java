@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -7,54 +8,71 @@ import java.util.ArrayList;
 public class Businessify {
 
     public static void main(String[] args) {
-        
-        loadFile();
+        ArrayList<String> businessWords = loadBusinesswords();
+        ArrayList<String> text = loadFile();
+        ArrayList<String> businessfiedText = replaceWords(text, businessWords);
+        for (int i = 0; i < businessfiedText.size(); i++){
+            System.out.print(businessfiedText.get(i) + " ");
+        }
     }
+    private static ArrayList<String> loadBusinesswords() {
+        ArrayList<String> businessWords = new ArrayList<String>();
+        try {
+                
+                File buzzwordFile = new File("buzzwords.csv");
+                Scanner fileSca = new Scanner(buzzwordFile);
+                fileSca.useDelimiter(","); 
+                while (fileSca.hasNextLine()) {
+                        String word = fileSca.next();
+                        if(word.contains("\r\n")) { // removes new line symble
+                            String newWord = word.replace("\r\n", "" );
+                            businessWords.add(newWord);
+                        } else {
+                            businessWords.add(word);
+                        }
+                    }
+                    
+                } catch (FileNotFoundException e) {
+                    System.out.println("An error occurred.");
+                    e.printStackTrace();
+            }
+            return businessWords;
+        }   
 
-    private static void loadFile() {
-
-        ArrayList<String> testList = new ArrayList<String>();
-        testList.add("ord1");
-        testList.add("ord2");
-        testList.add("ord3");
-        testList.add("ord4");
-
-        ArrayList<String> testReplace = new ArrayList<String>();
-        testReplace.add("ord1");
-        testReplace.add("ThisOrd1");
-        testReplace.add("ord4");
-        testReplace.add("ThisOrd4");
-        replaceWords(testList, testReplace); 
-
+    private static ArrayList<String> loadFile() {
+        ArrayList<String> returnText = new ArrayList<String>();
+        
         try {
             File nonBusinessifiedFile = new File("text.txt");
-            //File buzzwordFile = new File("buzzwords.txt");
             Scanner fileSca = new Scanner(nonBusinessifiedFile);
             while (fileSca.hasNextLine()) {
-                String word = fileSca.nextLine();
-                //System.out.println(word);
+                String word = fileSca.next();
+                returnText.add(word);
 
             }
+            
         } catch (FileNotFoundException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+        return returnText;
     }
 
     // takes an arralist of words and a arraylist of words that sould be replaced
-    // for evry odd index in the replacement araylist is a world that sould be replaced
-    // and for evry even index in the replacement arraylist is what the world sould be replaced with
+    // for evry even index in the replacement araylist is a world that sould be replaced
+    // and for evry odd index in the replacement arraylist is what the world sould be replaced with
     // return a arraylist that has replaced words
     private static ArrayList<String> replaceWords(ArrayList<String> originalText, ArrayList<String> replacementWords){
         ArrayList<String> returnText = new ArrayList<String>();
         for (int i = 0; i < originalText.size(); i++){
             boolean hasFoundMatch = false;
 
-            for (int j = 0; j < replacementWords.size(); j += 2){
+            for (int j = 0; j < replacementWords.size()-1; j += 2){ // Compares all the words with every word in     
 
                 if(originalText.get(i).equals(replacementWords.get(j))){ // if the words match with one from replacement words. Then replace
                     returnText.add(replacementWords.get(j+1));
                     hasFoundMatch = true;
+                    System.out.println("The word '" + originalText.get(i) + "' has been replaced with: '" + replacementWords.get(j +1) + "'");
                     break;
                 }
             }
@@ -62,15 +80,6 @@ public class Businessify {
                 returnText.add(originalText.get(i));
             }
         }
-
-        for (int i = 0; i < returnText.size(); i++){
-            System.out.println(returnText.get(i));
-        }
         return returnText;
     }
-    /*
-     * private void editFile(File nonBusinessifiedFile, File buzzwordFile) {
-     * 
-     * }
-     */
 }
