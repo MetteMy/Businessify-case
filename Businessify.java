@@ -3,11 +3,18 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JFrame;
+
 public class Businessify {
 
     public static void main(String[] args) {
+        showWindow();
         loadBusinesswords();
-        //loadFile();
+        loadFile();
+    }
+    private static void showWindow() {
+        //new BusinessifyWindow();  
+        new ApplicationWindow();
     }
     private static ArrayList<String> loadBusinesswords() {
         ArrayList<String> businessWords = new ArrayList<String>();
@@ -37,7 +44,7 @@ public class Businessify {
         
         try {
             File nonBusinessifiedFile = new File("text.txt");
-            File buzzwordFile = new File("buzzwords.txt");
+            //File buzzwordFile = new File("buzzwords.txt");
             Scanner fileSca = new Scanner(nonBusinessifiedFile);
             while (fileSca.hasNextLine()) {
                 String word = fileSca.next();
