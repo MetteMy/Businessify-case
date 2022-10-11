@@ -65,19 +65,48 @@ public class Businessify {
     private static ArrayList<String> replaceWords(ArrayList<String> originalText, ArrayList<String> replacementWords){
         ArrayList<String> returnText = new ArrayList<String>();
         for (int i = 0; i < originalText.size(); i++){
+            String originalWord = originalText.get(i);
+            char endChar = originalWord.charAt(originalWord.length()-1);
             boolean hasFoundMatch = false;
+            boolean isUppercase = false;
+            boolean endsWithSpecialChar = false; 
+
+            if (Character.isUpperCase(originalWord.charAt(0))){ // cheks if the word starts with cap
+                isUppercase = true;
+                originalWord = originalWord.toLowerCase();
+            }
+
+            if (endChar == ','|| endChar == '.'|| endChar == '!' || endChar == '?' || endChar == ':' || endChar == ';'){ // cheks if end char is special 
+                endsWithSpecialChar = true;
+                originalWord = originalWord.substring(0, originalWord.length()-1); // removes last char
+            }
 
             for (int j = 0; j < replacementWords.size()-1; j += 2){ // Compares all the words with every word in     
 
-                if(originalText.get(i).equals(replacementWords.get(j))){ // if the words match with one from replacement words. Then replace
-                    returnText.add(replacementWords.get(j+1));
+                if(originalWord.equals(replacementWords.get(j))){ // if the words match with one from replacement words. Then replace
+                    String returnWord = replacementWords.get(j+1);
+
+                    if (isUppercase){
+                        returnWord = returnWord.substring(0,1).toUpperCase() + returnWord.substring(1); // sets starting letter to be capital
+                    }
+                    if (endsWithSpecialChar){
+                        returnWord = returnWord + endChar;
+                    }
+
+                    returnText.add(returnWord);
                     hasFoundMatch = true;
-                    System.out.println("The word '" + originalText.get(i) + "' has been replaced with: '" + replacementWords.get(j +1) + "'");
+                    System.out.println("The word '" + originalWord + "' has been replaced with: '" + replacementWords.get(j +1) + "'");
                     break;
                 }
             }
             if (hasFoundMatch == false){ // if the word has not been replaced then instert the original word
-                returnText.add(originalText.get(i));
+                if(isUppercase){
+                    originalWord = originalWord.substring(0, 1).toUpperCase() + originalWord.substring(1); // sets starting letter to be capital
+                }
+                if(endsWithSpecialChar){
+                    originalWord = originalWord + endChar;
+                }
+                returnText.add(originalWord);
             }
         }
         return returnText;
