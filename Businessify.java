@@ -5,15 +5,32 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
+
+
 public class Businessify {
 
     public static void main(String[] args) {
+        ApplicationWindow appWindow = new ApplicationWindow();
+        
+        appWindow.browseBtn.addActionListener(e -> {
+            
         ArrayList<String> businessWords = loadBusinesswords();
-        ArrayList<String> text = loadFile();
+        ArrayList<String> text = loadFile(appWindow.fileChooser(appWindow.centerPanel));
         ArrayList<String> businessfiedText = replaceWords(text, businessWords);
-        for (int i = 0; i < businessfiedText.size(); i++){
+        /*for (int i = 0; i < businessfiedText.size(); i++){
             System.out.print(businessfiedText.get(i) + " ");
-        }
+            
+            
+        }*/
+        String originalTextString = String.join(" ", text);
+        String translatedTextString = String.join(" ", businessfiedText);
+
+        appWindow.originalText.setText(originalTextString);
+        appWindow.translatedText.setText(translatedTextString);
+        
+    }); 
     }
     private static ArrayList<String> loadBusinesswords() {
         ArrayList<String> businessWords = new ArrayList<String>();
@@ -33,17 +50,17 @@ public class Businessify {
                     }
                     
                 } catch (FileNotFoundException e) {
-                    System.out.println("An error occurred.");
+                    System.out.println("An error occurred. - buzzwordfile");
                     e.printStackTrace();
             }
             return businessWords;
         }   
 
-    private static ArrayList<String> loadFile() {
+    private static ArrayList<String> loadFile(String path) {
         ArrayList<String> returnText = new ArrayList<String>();
         
         try {
-            File nonBusinessifiedFile = new File("text.txt");
+            File nonBusinessifiedFile = new File(path);
             Scanner fileSca = new Scanner(nonBusinessifiedFile);
             while (fileSca.hasNextLine()) {
                 String word = fileSca.next();
@@ -52,9 +69,10 @@ public class Businessify {
             }
             
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
+            System.out.println("An error occurred. - userfile");
             e.printStackTrace();
         }
+        
         return returnText;
     }
 
