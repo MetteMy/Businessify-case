@@ -19,18 +19,14 @@ public class Businessify {
         ArrayList<String> businessWords = loadBusinesswords();
         ArrayList<String> text = loadFile(appWindow.fileChooser(appWindow.centerPanel));
         ArrayList<String> businessfiedText = replaceWords(text, businessWords);
-        /*for (int i = 0; i < businessfiedText.size(); i++){
-            System.out.print(businessfiedText.get(i) + " ");
-            
-            
-        }*/
+
         String originalTextString = String.join(" ", text);
         String translatedTextString = String.join(" ", businessfiedText);
 
         appWindow.originalText.setText(originalTextString);
         appWindow.translatedText.setText(translatedTextString);
         
-    }); 
+        }); 
     }
     private static ArrayList<String> loadBusinesswords() {
         ArrayList<String> businessWords = new ArrayList<String>();
