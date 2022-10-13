@@ -1,11 +1,9 @@
-import java.io.Console;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.ArrayList;
 
-import javax.swing.JFrame;
 
 
 
@@ -15,7 +13,7 @@ public class Businessify {
         ApplicationWindow appWindow = new ApplicationWindow();
         
         appWindow.browseBtn.addActionListener(e -> {
-            
+
         ArrayList<String> businessWords = loadBusinesswords();
         ArrayList<String> text = loadFile(appWindow.fileChooser(appWindow.centerPanel));
         ArrayList<String> businessfiedText = replaceWords(text, businessWords);

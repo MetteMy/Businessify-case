@@ -3,7 +3,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
+
 
 
 
@@ -11,9 +11,9 @@ class ApplicationWindow {
 
     JFrame frame = new JFrame("Businessify"); 
     BorderLayout BorderLayout = new BorderLayout();
-        
-    Color lightBlue = new Color(169, 214, 229);
-    Color darkBlue = new Color(42, 111, 151);
+    Color white = new Color(70, 143, 175);
+    Color lightBlue = new Color(137, 194, 217);
+    Color darkBlue = new Color(44, 125, 160);
 
     JPanel northPanel = new JPanel();
     JPanel southPanel = new JPanel();
@@ -26,7 +26,7 @@ class ApplicationWindow {
    
     JLabel fileName = new JLabel();
     JLabel originalTextlabel = new JLabel("Original tekst                                          ");
-    JLabel translatedTextLabel = new JLabel("                     Oversat tekst");
+    JLabel translatedTextLabel = new JLabel("                                          Oversat tekst");
     JTextArea originalText = new JTextArea();
     JTextArea translatedText = new JTextArea();
 
@@ -48,7 +48,7 @@ class ApplicationWindow {
         frame.add(centerPanel, BorderLayout.CENTER);
     
         
-        northPanel.setBackground(darkBlue);
+        northPanel.setBackground(white);
         westPanel.setBackground(darkBlue);
         centerPanel.setBackground(lightBlue);
         eastPanel.setBackground(darkBlue);
