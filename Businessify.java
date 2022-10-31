@@ -18,13 +18,14 @@ public class Businessify {
         ArrayList<String> text = loadFile(appWindow.fileChooser(appWindow.centerPanel));
         ArrayList<String> businessfiedText = replaceWords(text, businessWords);
         
+
         String originalTextString = String.join(" ", text);
         String translatedTextString = String.join(" ", businessfiedText);
 
         appWindow.originalText.setText(originalTextString);
         appWindow.translatedText.setText(translatedTextString);
         
-    }); 
+        }); 
     }
     private static ArrayList<String> loadBusinesswords() {
         ArrayList<String> businessWords = new ArrayList<String>();
