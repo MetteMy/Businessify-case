@@ -17,11 +17,7 @@ public class Businessify {
         ArrayList<String> businessWords = loadBusinesswords();
         ArrayList<String> text = loadFile(appWindow.fileChooser(appWindow.centerPanel));
         ArrayList<String> businessfiedText = replaceWords(text, businessWords);
-        /*for (int i = 0; i < businessfiedText.size(); i++){
-            System.out.print(businessfiedText.get(i) + " ");
-            
-            
-        }*/
+        
         String originalTextString = String.join(" ", text);
         String translatedTextString = String.join(" ", businessfiedText);
 
@@ -35,7 +31,7 @@ public class Businessify {
         try {
                 
                 File buzzwordFile = new File("buzzwords.csv");
-                Scanner fileSca = new Scanner(buzzwordFile);
+                Scanner fileSca = new Scanner(buzzwordFile,"UTF-8");
                 fileSca.useDelimiter(","); 
                 while (fileSca.hasNextLine()) {
                         String word = fileSca.next();
@@ -59,7 +55,7 @@ public class Businessify {
         
         try {
             File nonBusinessifiedFile = new File(path);
-            Scanner fileSca = new Scanner(nonBusinessifiedFile);
+            Scanner fileSca = new Scanner(nonBusinessifiedFile, "UTF-8");
             while (fileSca.hasNextLine()) {
                 String word = fileSca.next();
                 returnText.add(word);

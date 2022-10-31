@@ -84,13 +84,13 @@ class ApplicationWindow {
         File selectedFile = new File("");
         String filePath = "";
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        int result = fileChooser.showOpenDialog(panel);
-        if (result == JFileChooser.APPROVE_OPTION) {
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home"))); //choooses the start directory
+        int result = fileChooser.showOpenDialog(panel); //opens a dialog windoe, with the filechooser
+        if (result == JFileChooser.APPROVE_OPTION) { //If 'Open' is clicked, and a file has been chosen
         selectedFile = fileChooser.getSelectedFile();
-        System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-        fileName.setText(selectedFile.getName());
-        filePath = selectedFile.getAbsolutePath();
+        
+        fileName.setText(selectedFile.getName()); // Writes the file name, under the browse button. 
+        filePath = selectedFile.getAbsolutePath(); 
         }
          
 		return filePath; 
